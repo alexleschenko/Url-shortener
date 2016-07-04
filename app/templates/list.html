@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<table border="1">
+    <tr bgcolor="#808080">
+        <td>Url</td>
+        <td>Url short</td>
+        <td>Time of creating</td>
+        <td>Clicks</td>
+    </tr>
+    {% for i in data %}
+        <tr>
+        <td><a href="{{ i.url }}">{{ i.url }}</a></td>
+        <td><a href="http://127.0.0.1:8000/?shr={{ i.short_url }}">http://127.0.0.1:8000/?shr={{ i.short_url }}</a></td>
+        <td>{{ i.cr_time }}</td>
+        <td>{{ i.clicks }}</td>
+        </tr>
+    {% endfor %}
+</table>
