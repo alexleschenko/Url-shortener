@@ -1,9 +1,13 @@
-from django.shortcuts import render, redirect
+from random import choice
+
 import arrow
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+
 from forms import *
 from models import *
-from random import choice
-from django.http import HttpResponse
+
+
 # Create your views here.
 def shortener(request):
     if request.method == 'POST':
@@ -17,14 +21,21 @@ def shortener(request):
                 url = ""
                 for i in range(6):
                     url += choice('1234567890abcdef')
-            Url.objects.create(url=data['url'], cr_time = time.format('YYYY - MM - DD HH:mm:ss'), short_url=url)
+            Url.objects.create(url=data['url'], cr_time=time.format('YYYY - MM - DD HH:mm:ss'), short_url=url)
             return HttpResponse("You've been create short URL")
-        context = {'my_form':form}
+        context = {'my_form': form}
         return render(request, 'my_form.html', context)
+    elif request.method == 'GET':
+        shr = request.GET.get('shr')
+        data = Url.objects.filter(short_url=shr).get()
+        Url.objects.filter(short_url=shr).update(clicks = data.clicks+1)
+        return redirect(data.url)
     else:
-        context = {'my_form':URL_create()}
+        context = {'my_form': URL_create()}
         return render(request, 'my_form.html', context)
+
+
 def url_list(request):
     data = Url.objects.filter()
-    context = {'data':data}
+    context = {'data': data}
     return render(request, 'list.html', context)
