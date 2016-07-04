@@ -22,7 +22,7 @@ def shortener(request):
             Url.objects.create(url=data['url'], cr_time = time.format('YYYY - MM - DD HH:mm:ss'), short_url=url_sh_fin)
             data = Url.objects.filter().last()
             context = {'data':data}
-            return render(request, 'create_url', context)
+            return render(request, 'create_url.html', context)
         context = {'my_form':form}
         return render(request, 'my_form.html', context)
     else:
