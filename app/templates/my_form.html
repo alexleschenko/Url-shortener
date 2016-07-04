@@ -1,0 +1,5 @@
+<form action="{% url 'shortener' %}" method="POST">
+    {{ my_form.as_p }}
+    {% csrf_token %}<br>
+    <input type="submit" value="Create">
+</form>
