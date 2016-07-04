@@ -6,6 +6,6 @@ from django.db import models
 class Url(models.Model):
     url = models.URLField(null=True)
     cr_time = models.CharField(null=True, max_length=100)
-    short_url = models.URLField(null=True)
+    short_url = models.CharField(null=True, max_length=100)
     clicks = models.IntegerField(null=True, default=0)
 
