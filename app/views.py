@@ -22,3 +22,8 @@ def shortener(request):
             data = Url.objects.filter().last()
             context = {'data':data}
             return render(request, 'create_url', context)
+        context = {'my_form':form}
+        return render(request, 'my_form.html', context)
+    else:
+        context = {'my_form':URL_create()}
+        return render(request, 'my_form.html', context)
