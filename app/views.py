@@ -15,13 +15,14 @@ def shortener(request):
         if form.is_valid():
             data = form.cleaned_data
             time = arrow.utcnow()
+            time = time.to('Europe/Minsk')
             url = ""
             url_list = Url.objects.filter().values('short_url')
             while url == "" or url in url_list:
                 url = "http://127.0.0.1:8000/?shr="
                 for i in range(6):
                     url += choice('1234567890abcdef')
-            Url.objects.create(url=data['url'], cr_time=time.format('YYYY - MM - DD HH:mm:ss'), short_url=url)
+            Url.objects.create(url=data['url'], cr_time=time.format('YYYY-MM-DD HH:MM'), short_url=url)
             data = Url.objects.filter().last()
             context = {'data':data}
             return render(request, 'done.html', context)
