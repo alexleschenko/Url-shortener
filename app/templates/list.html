@@ -10,7 +10,7 @@
     {% for i in data %}
         <tr>
         <td><a href="{{ i.url }}">{{ i.url }}</a></td>
-        <td><a href="http://127.0.0.1:8000/?shr={{ i.short_url }}" target="_blank">http://127.0.0.1:8000/?shr={{ i.short_url }}</a></td>
+        <td><a href="{{ i.short_url }}" target="_blank">{{ i.short_url }}</a></td>
         <td>{{ i.cr_time }}</td>
         <td>{{ i.clicks }}</td>
         </tr>

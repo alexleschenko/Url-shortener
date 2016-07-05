@@ -18,7 +18,7 @@ def shortener(request):
             url = ""
             url_list = Url.objects.filter().values('short_url')
             while url == "" or url in url_list:
-                url = ""
+                url = "http://127.0.0.1:8000/?shr="
                 for i in range(6):
                     url += choice('1234567890abcdef')
             Url.objects.create(url=data['url'], cr_time=time.format('YYYY - MM - DD HH:mm:ss'), short_url=url)
@@ -30,8 +30,8 @@ def shortener(request):
     elif request.method == 'GET':
         if request.GET.items():
             shr = request.GET.get('shr')
-            data = Url.objects.filter(short_url=shr).get()
-            Url.objects.filter(short_url=shr).update(clicks=data.clicks + 1)
+            data = Url.objects.filter(short_url__icontains=shr).get()
+            Url.objects.filter(short_url__icontains=shr).update(clicks=data.clicks + 1)
             return redirect(data.url)
         else:
             context = {'my_form': URL_create()}
