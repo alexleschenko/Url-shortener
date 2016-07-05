@@ -1,7 +1,6 @@
 from random import choice
 
 import arrow
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from forms import *
@@ -24,7 +23,7 @@ def shortener(request):
                     url += choice('1234567890abcdef')
             Url.objects.create(url=data['url'], cr_time=time.format('YYYY-MM-DD HH:MM'), short_url=url)
             data = Url.objects.filter().last()
-            context = {'data':data}
+            context = {'data': data}
             return render(request, 'done.html', context)
         context = {'my_form': form}
         return render(request, 'my_form.html', context)
